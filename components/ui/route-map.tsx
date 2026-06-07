@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import { mapCountries, mapRoutes } from "@/lib/content";
+import { usePauseWhenHidden } from "@/hooks/use-pause-when-hidden";
 
 type RouteMapProps = {
   className?: string;
@@ -36,12 +36,16 @@ function computeViewBox(padding = 6) {
 
 export function RouteMap({ className = "", interactive = true, showLabels = false }: RouteMapProps) {
   const [hoveredRoute, setHoveredRoute] = useState<string | null>(null);
+  const { ref, paused } = usePauseWhenHidden<HTMLDivElement>();
   const viewBox = useMemo(() => computeViewBox(7), []);
 
   const getCountry = (id: string) => mapCountries.find((c) => c.id === id)!;
 
   return (
-    <div className={`relative flex items-center justify-center ${className}`}>
+    <div
+      ref={ref}
+      className={`relative flex items-center justify-center ${paused ? "motion-paused" : ""} ${className}`}
+    >
       <svg
         viewBox={viewBox}
         preserveAspectRatio="xMidYMid meet"
@@ -57,35 +61,19 @@ export function RouteMap({ className = "", interactive = true, showLabels = fals
             <stop offset="0%" stopColor="#1e293b" />
             <stop offset="100%" stopColor="#334155" />
           </linearGradient>
-          <filter id="roadGlow">
-            <feGaussianBlur stdDeviation="0.6" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
         </defs>
 
-        {/* Subtle region backdrop */}
-        <ellipse
-          cx="48"
-          cy="46"
-          rx="38"
-          ry="34"
-          fill="#00C2FF"
-          opacity="0.04"
-        />
+        <ellipse cx="48" cy="46" rx="38" ry="34" fill="#00C2FF" opacity="0.04" />
 
-        {/* Road corridors */}
-        {mapRoutes.map((route) => {
+        {mapRoutes.map((route, index) => {
           const from = getCountry(route.from);
           const to = getCountry(route.to);
           const path = roadPath(from, to);
           const isHovered = hoveredRoute === route.label;
+          const speed = 3.5 + index * 0.3;
 
           return (
             <g key={route.label}>
-              {/* Road base — asphalt width */}
               <path
                 d={path}
                 fill="none"
@@ -94,8 +82,7 @@ export function RouteMap({ className = "", interactive = true, showLabels = fals
                 strokeLinecap="round"
                 opacity={isHovered ? 0.85 : 0.55}
               />
-              {/* Road edge markings */}
-              <motion.path
+              <path
                 d={path}
                 fill="none"
                 stroke="white"
@@ -103,11 +90,10 @@ export function RouteMap({ className = "", interactive = true, showLabels = fals
                 strokeLinecap="round"
                 strokeDasharray="0.8 1.6"
                 opacity={isHovered ? 0.5 : 0.28}
-                animate={{ strokeDashoffset: [0, -4.8] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                className="route-lane-markings"
+                style={{ animationDuration: `${speed + 1}s` }}
               />
-              {/* Active freight lane */}
-              <motion.path
+              <path
                 d={path}
                 fill="none"
                 stroke="url(#routeGrad)"
@@ -115,15 +101,11 @@ export function RouteMap({ className = "", interactive = true, showLabels = fals
                 strokeLinecap="round"
                 strokeDasharray="2.2 1.4"
                 opacity={isHovered ? 1 : 0.65}
-                filter={isHovered ? "url(#roadGlow)" : undefined}
-                animate={{ strokeDashoffset: [0, -7] }}
-                transition={{ duration: isHovered ? 1.8 : 3.5, repeat: Infinity, ease: "linear" }}
+                className={`route-freight-lane ${isHovered ? "route-freight-lane-active" : ""}`}
+                style={{ animationDuration: `${speed}s` }}
                 onMouseEnter={() => interactive && setHoveredRoute(route.label)}
                 onMouseLeave={() => setHoveredRoute(null)}
-                className={interactive ? "cursor-pointer" : ""}
-                style={{ pointerEvents: "stroke" }}
               />
-              {/* Wider invisible hit area */}
               {interactive && (
                 <path
                   d={path}
@@ -139,7 +121,6 @@ export function RouteMap({ className = "", interactive = true, showLabels = fals
           );
         })}
 
-        {/* Country nodes */}
         {mapCountries.map((country) => (
           <g key={country.id}>
             <circle
@@ -159,7 +140,7 @@ export function RouteMap({ className = "", interactive = true, showLabels = fals
                   stroke="#FF6B00"
                   strokeWidth="0.35"
                   opacity="0.45"
-                  className="animate-pulse_route"
+                  className="hub-pulse"
                 />
                 <circle
                   cx={country.x}
@@ -190,11 +171,7 @@ export function RouteMap({ className = "", interactive = true, showLabels = fals
       </svg>
 
       {interactive && hoveredRoute && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute bottom-4 left-4 right-4 rounded-xl border border-cyan/30 bg-navy/90 p-4 backdrop-blur-md md:left-auto md:right-6 md:max-w-sm"
-        >
+        <div className="absolute bottom-4 left-4 right-4 animate-fade-in rounded-xl border border-cyan/30 bg-navy/90 p-4 backdrop-blur-md md:left-auto md:right-6 md:max-w-sm">
           {mapRoutes
             .filter((r) => r.label === hoveredRoute)
             .map((r) => (
@@ -203,7 +180,7 @@ export function RouteMap({ className = "", interactive = true, showLabels = fals
                 <p className="mt-1 text-sm text-white/70">{r.services}</p>
               </div>
             ))}
-        </motion.div>
+        </div>
       )}
     </div>
   );

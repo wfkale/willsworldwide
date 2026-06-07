@@ -59,6 +59,121 @@ body {
   @apply mb-6 h-1 w-16 rounded-full bg-gradient-to-r from-orange to-cyan;
 }
 
+/* Route map — CSS-driven animations (GPU-friendly) */
+.route-lane-markings {
+  animation: route-march 4.5s linear infinite;
+}
+
+.route-freight-lane {
+  animation: route-march 3.5s linear infinite;
+}
+
+.route-freight-lane-active {
+  animation-duration: 1.8s;
+}
+
+.hub-pulse {
+  animation: pulse_route 3s ease-in-out infinite;
+}
+
+/* Hero logo motion */
+.hero-logo-glow {
+  background: radial-gradient(circle, rgba(0, 194, 255, 0.14) 0%, rgba(255, 107, 0, 0.08) 45%, transparent 70%);
+  animation: hero-glow 4.5s ease-in-out infinite;
+}
+
+.hero-logo-float {
+  animation: hero-float 5.5s ease-in-out infinite;
+}
+
+.hero-route-arc {
+  animation: route-march 2.2s linear infinite;
+  opacity: 0.65;
+}
+
+.hero-orbit {
+  animation: hero-orbit 18s linear infinite;
+}
+
+.hero-orbit-dot {
+  animation: hero-dot-pulse 1.5s ease-in-out infinite;
+}
+
+.motion-paused .route-lane-markings,
+.motion-paused .route-freight-lane,
+.motion-paused .hub-pulse,
+.motion-paused .hero-logo-glow,
+.motion-paused .hero-logo-float,
+.motion-paused .hero-route-arc,
+.motion-paused .hero-orbit,
+.motion-paused .hero-orbit-dot,
+.motion-paused .hero-decor-layer {
+  animation-play-state: paused;
+}
+
+.hero-decor-layer {
+  animation: hero-glow 8s ease-in-out infinite;
+}
+
+@keyframes route-march {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+@keyframes hero-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.025);
+  }
+}
+
+@keyframes hero-orbit {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes hero-dot-pulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.35);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import {
   Truck,
   Package,
@@ -50,38 +49,17 @@ export default function ServicesClient() {
         </div>
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">
           <div className="max-w-3xl">
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-sm font-semibold uppercase tracking-widest text-cyan"
-            >
-              Services
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 }}
-              className="mt-4 font-heading text-4xl font-bold text-white md:text-6xl"
-            >
+            <p className="text-sm font-semibold uppercase tracking-widest text-cyan">Services</p>
+            <h1 className="mt-4 font-heading text-4xl font-bold text-white md:text-6xl">
               Comprehensive Logistics Solutions
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mt-6 text-lg leading-relaxed text-white/70 md:text-xl"
-            >
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed text-white/70 md:text-xl">
               End-to-end freight, transit, clearing and distribution — engineered for speed,
               security and scale across Tanzania and East Africa.
-            </motion.p>
+            </p>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4"
-          >
+          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
             {[
               { label: "Core Services", value: "6" },
               { label: "Trade Corridors", value: "9+" },
@@ -98,7 +76,7 @@ export default function ServicesClient() {
                 </p>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -137,12 +115,11 @@ export default function ServicesClient() {
             {serviceDetails.map((service, i) => {
               const Icon = icons[i];
               return (
-                <motion.a
+                <a
                   key={service.slug}
                   href={`#${service.slug}`}
                   data-service-card
-                  whileHover={{ y: -6 }}
-                  className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-xl ${
+                  className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${
                     i === 0 ? "sm:col-span-2 lg:row-span-1" : ""
                   }`}
                 >
@@ -172,7 +149,7 @@ export default function ServicesClient() {
                       Explore <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
-                </motion.a>
+                </a>
               );
             })}
           </div>
@@ -191,12 +168,8 @@ export default function ServicesClient() {
             className={`scroll-mt-36 py-20 md:py-28 ${index % 2 === 0 ? "bg-surface" : "bg-white"}`}
           >
             <div className="mx-auto max-w-7xl px-4 md:px-8">
-              <div
-                className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-16 ${
-                  reversed ? "lg:[direction:rtl]" : ""
-                }`}
-              >
-                <div className={`${reversed ? "lg:[direction:ltr]" : ""}`}>
+              <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+                <div className={reversed ? "lg:order-2" : "lg:order-1"}>
                   <div className="relative overflow-hidden rounded-3xl shadow-2xl">
                     <div className="relative aspect-[4/3] min-h-[280px]">
                       <Image
@@ -205,6 +178,7 @@ export default function ServicesClient() {
                         fill
                         className="object-cover"
                         sizes="(max-width: 1024px) 100vw, 50vw"
+                        loading={index === 0 ? "eager" : "lazy"}
                       />
                       <div className={`absolute inset-0 bg-gradient-to-br ${service.accent} opacity-30 mix-blend-multiply`} />
                     </div>
@@ -217,7 +191,7 @@ export default function ServicesClient() {
                   </div>
                 </div>
 
-                <div className={`${reversed ? "lg:[direction:ltr]" : ""}`}>
+                <div className={reversed ? "lg:order-1" : "lg:order-2"}>
                   <div className="accent-line" />
                   <h2 className="font-heading text-3xl font-bold text-navy md:text-4xl">
                     {service.title}

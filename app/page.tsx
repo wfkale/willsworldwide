@@ -6,6 +6,8 @@ import { HomeIndustriesSection } from "@/components/home/home-industries-section
 import { HomeProcessSection } from "@/components/home/home-process-section";
 import { HomeCtaBanner } from "@/components/home/home-cta-banner";
 
+export const dynamic = "force-static";
+
 export default function HomePage() {
   return (
     <main>

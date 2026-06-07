@@ -1,39 +1,29 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Truck, Container, Map } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { company, stats } from "@/lib/content";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { AnimatedHeroLogo } from "@/components/home/animated-hero-logo";
+import { usePauseWhenHidden } from "@/hooks/use-pause-when-hidden";
+
+const AnimatedHeroLogo = dynamic(
+  () => import("@/components/home/animated-hero-logo").then((m) => m.AnimatedHeroLogo),
+  { ssr: false, loading: () => <div className="h-28 w-full max-w-md animate-pulse rounded-2xl bg-white/5 md:h-36" /> }
+);
 
 export function HomeHero() {
+  const { ref, paused } = usePauseWhenHidden<HTMLElement>();
+
   return (
-    <section className="relative min-h-screen overflow-hidden bg-hero-gradient pt-24">
-      {/* Parallax layers */}
-      <div className="pointer-events-none absolute inset-0">
-        <motion.div
-          className="absolute -right-20 top-32 opacity-10"
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        >
-          <Container className="h-48 w-48 text-cyan" strokeWidth={0.5} />
-        </motion.div>
-        <motion.div
-          className="absolute bottom-40 left-10 opacity-10"
-          animate={{ y: [0, 15, 0] }}
-          transition={{ duration: 6, repeat: Infinity, delay: 1 }}
-        >
-          <Truck className="h-36 w-36 text-orange" strokeWidth={0.5} />
-        </motion.div>
-        <motion.div
-          className="absolute right-1/4 top-1/2 opacity-5"
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 10, repeat: Infinity }}
-        >
-          <Map className="h-64 w-64 text-white" strokeWidth={0.3} />
-        </motion.div>
-      </div>
+    <section
+      ref={ref}
+      className={`relative min-h-screen overflow-hidden bg-hero-gradient pt-24 ${
+        paused ? "motion-paused" : ""
+      }`}
+    >
+      <div className="pointer-events-none absolute inset-0 hero-decor-layer" aria-hidden />
 
       <div className="relative mx-auto flex max-w-7xl flex-col items-center px-4 pb-20 pt-16 text-center md:px-8 md:pt-24">
         <motion.span
@@ -98,7 +88,7 @@ export function HomeHero() {
         >
           {stats.map((stat) => (
             <div key={stat.label} className="glass-card px-4 py-6">
-              <AnimatedCounter {...stat} dark />
+              <AnimatedCounter {...stat} dark immediate />
             </div>
           ))}
         </motion.div>

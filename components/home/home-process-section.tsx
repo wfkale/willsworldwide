@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { loadGsap } from "@/lib/gsap-loader";
 import { processSteps } from "@/lib/content";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function HomeProcessSection() {
   const ref = useRef<HTMLElement>(null);
@@ -14,18 +11,40 @@ export function HomeProcessSection() {
     const section = ref.current;
     if (!section) return;
 
-    const items = section.querySelectorAll("[data-step]");
-    gsap.fromTo(
-      items,
-      { opacity: 0, x: -30 },
-      {
-        opacity: 1,
-        x: 0,
-        stagger: 0.15,
-        duration: 0.6,
-        scrollTrigger: { trigger: section, start: "top 75%" },
+    let trigger: { kill: () => void } | null = null;
+    let cancelled = false;
+
+    const init = async () => {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const items = section.querySelectorAll("[data-step]");
+      const { gsap } = await loadGsap();
+      if (cancelled) return;
+
+      if (prefersReduced) {
+        gsap.set(items, { opacity: 1, x: 0 });
+        return;
       }
-    );
+
+      const tween = gsap.fromTo(
+        items,
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1,
+          x: 0,
+          stagger: 0.15,
+          duration: 0.6,
+          scrollTrigger: { trigger: section, start: "top 75%" },
+        }
+      );
+      trigger = tween.scrollTrigger ?? null;
+    };
+
+    init();
+
+    return () => {
+      cancelled = true;
+      trigger?.kill();
+    };
   }, []);
 
   return (

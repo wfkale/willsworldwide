@@ -47,6 +47,7 @@ export function HomeServicesSection() {
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover transition-transform duration-700 hover:scale-105"
+                    loading={index < 2 ? "eager" : "lazy"}
                     priority={index < 2}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent" />
