@@ -53,8 +53,6 @@ export function AnimatedHeroLogo() {
         paused ? "motion-paused" : ""
       }`}
     >
-      <div className="hero-logo-glow pointer-events-none absolute inset-0 rounded-full" />
-
       {!reduced && <RouteArcs reduced={!!reduced} />}
 
       <motion.div

@@ -77,11 +77,6 @@ body {
 }
 
 /* Hero logo motion */
-.hero-logo-glow {
-  background: radial-gradient(circle, rgba(0, 194, 255, 0.14) 0%, rgba(255, 107, 0, 0.08) 45%, transparent 70%);
-  animation: hero-glow 4.5s ease-in-out infinite;
-}
-
 .hero-logo-float {
   animation: hero-float 5.5s ease-in-out infinite;
 }
@@ -102,7 +97,6 @@ body {
 .motion-paused .route-lane-markings,
 .motion-paused .route-freight-lane,
 .motion-paused .hub-pulse,
-.motion-paused .hero-logo-glow,
 .motion-paused .hero-logo-float,
 .motion-paused .hero-route-arc,
 .motion-paused .hero-orbit,
