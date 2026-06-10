@@ -1,3 +1,5 @@
+import { images } from "@/lib/images";
+
 export const company = {
   name: "Wills Worldwide Company Limited",
   shortName: "Wills Worldwide",
@@ -127,48 +129,42 @@ export const whyChooseUs = [
     icon: "shield",
     title: "Professional Logistics Management",
     text: "Industry expertise and structured operations from planning through to final delivery.",
-    image:
-      "https://images.unsplash.com/photo-1759272548449-7b689a81c8fb?auto=format&fit=crop&w=1200&q=80",
+    image: images.terminalCoordination,
     imageAlt: "Logistics supervisors coordinating operations at a container terminal",
   },
   {
     icon: "clock",
     title: "Safe & Secure Cargo Handling",
     text: "Rigorous handling protocols designed to protect cargo integrity at every touchpoint.",
-    image:
-      "https://images.unsplash.com/photo-1645736315000-6f788915923b?auto=format&fit=crop&w=1200&q=80",
+    image: images.warehouseForklift,
     imageAlt: "Forklift moving palletised cargo through a secure warehouse facility",
   },
   {
     icon: "route",
     title: "Timely Delivery Services",
     text: "An optimised network ensuring on-time delivery across all regional service routes.",
-    image:
-      "https://images.unsplash.com/photo-1774116196662-a9e1e4fa1612?auto=format&fit=crop&w=1200&q=80",
+    image: images.highwayDelivery,
     imageAlt: "Freight truck travelling on schedule along a regional highway corridor",
   },
   {
     icon: "dollar",
     title: "Competitive Pricing",
     text: "Market-competitive rates with flexible models tailored to businesses of all sizes.",
-    image:
-      "https://images.unsplash.com/photo-1626266061368-46a8f578ddd6?auto=format&fit=crop&w=1200&q=80",
+    image: images.pricingCalculator,
     imageAlt: "Freight cost calculations being reviewed at a business desk",
   },
   {
     icon: "globe",
     title: "Strong Regional Network",
     text: "Established transport connectivity across East Africa opening new trade opportunities.",
-    image:
-      "https://images.unsplash.com/photo-1766785368863-f2188a8c8b32?auto=format&fit=crop&w=1200&q=80",
+    image: images.regionalFleet,
     imageAlt: "Multiple freight trucks operating across a connected regional highway network",
   },
   {
     icon: "users",
     title: "Customer-Focused Operations",
     text: "Client success drives everything we do — we listen, adapt and exceed expectations.",
-    image:
-      "https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80",
+    image: images.clientHandshake,
     imageAlt: "Business partners shaking hands after a successful logistics agreement",
   },
 ];
@@ -178,40 +174,35 @@ export const homeServices = [
     title: "Transit Cargo",
     description:
       "Efficient cross-border transportation across East Africa with professional handling at every customs and border point.",
-    image:
-      "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+    image: images.transitTruck,
     alt: "Heavy freight trucks on a regional highway",
   },
   {
     title: "Freight Forwarding",
     description:
       "End-to-end freight coordination connecting Tanzanian businesses to regional and international trade corridors.",
-    image:
-      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80",
+    image: images.cargoShip,
     alt: "Cargo ship at sea carrying international freight",
   },
   {
     title: "Import & Export",
     description:
       "Smooth cargo movement and logistics coordination for importers and exporters at competitive rates.",
-    image:
-      "https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&w=1200&q=80",
+    image: images.containerPort,
     alt: "Stacked shipping containers at a commercial port yard",
   },
   {
     title: "Supply Chain Support",
     description:
       "Comprehensive supply chain management from procurement logistics to final delivery.",
-    image:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+    image: images.warehouseOperations,
     alt: "Modern warehouse with logistics operations",
   },
   {
     title: "Local Distribution",
     description:
       "Reliable last-mile delivery across Tanzania for wholesalers, retailers and industrial clients.",
-    image:
-      "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80",
+    image: images.distributionWarehouse,
     alt: "Distribution warehouse with stocked shelves for local delivery",
   },
 ];
@@ -322,7 +313,7 @@ export const serviceDetails = [
     slug: "transit-cargo",
     title: "Transit Cargo Transportation",
     summary: "Cross-border cargo movement across East Africa with professional customs and border handling.",
-    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+    image: images.transitTruck,
     accent: "from-orange to-amber-500",
     whatWeDo: "We transport goods across borders and transit routes within East Africa and beyond, ensuring smooth movement through customs and border points with professional handling at every stage.",
     benefits: ["Cross-border expertise", "Customs coordination", "Secure cargo handling", "Competitive transit rates"],
@@ -333,7 +324,7 @@ export const serviceDetails = [
     slug: "road-freight",
     title: "Road Freight",
     summary: "Domestic and cross-border road transport with experienced drivers and maintained vehicles.",
-    image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1200&q=80",
+    image: images.roadFreightTruck,
     accent: "from-navy to-cyan",
     whatWeDo: "Cross-border and domestic road transport solutions across East Africa, with experienced drivers and well-maintained vehicles for reliable cargo delivery.",
     benefits: ["Fleet reliability", "Experienced drivers", "Route optimisation", "Flexible scheduling"],
@@ -344,7 +335,7 @@ export const serviceDetails = [
     slug: "cargo-handling",
     title: "Cargo Handling",
     summary: "Professional loading, unloading and cargo management at every touchpoint.",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+    image: images.warehouseOperations,
     accent: "from-slate-700 to-slate-500",
     whatWeDo: "Professional loading, unloading, and cargo management ensuring goods are handled safely and securely throughout the logistics chain.",
     benefits: ["Safe handling protocols", "Damage prevention", "Efficient loading", "Inventory coordination"],
@@ -355,7 +346,7 @@ export const serviceDetails = [
     slug: "clearing-forwarding",
     title: "Clearing & Forwarding",
     summary: "Customs liaison, documentation and border clearance for international cargo.",
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
+    image: images.clearingForwarding,
     accent: "from-cyan to-blue-500",
     whatWeDo: "Supporting international cargo movement with documentation guidance, customs liaison and border clearance support for seamless import and export operations.",
     benefits: ["Customs expertise", "Documentation support", "Faster clearance", "Compliance assurance"],
@@ -366,7 +357,7 @@ export const serviceDetails = [
     slug: "distribution",
     title: "Distribution Services",
     summary: "Wide-area distribution and last-mile delivery across Tanzania and the region.",
-    image: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80",
+    image: images.distributionWarehouse,
     accent: "from-emerald-600 to-teal-500",
     whatWeDo: "Wide-area distribution and last-mile delivery services reaching businesses across Tanzania and the East African region.",
     benefits: ["Last-mile delivery", "Wide coverage", "Timely distribution", "B2B focus"],
@@ -377,7 +368,7 @@ export const serviceDetails = [
     slug: "supply-chain",
     title: "Supply Chain Support",
     summary: "End-to-end supply chain management from procurement to final delivery.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
+    image: images.supplyChain,
     accent: "from-violet-600 to-purple-500",
     whatWeDo: "Comprehensive supply chain management from procurement logistics to final delivery, reducing costs and improving operational flow.",
     benefits: ["End-to-end management", "Cost reduction", "Process optimisation", "Operational continuity"],
