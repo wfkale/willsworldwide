@@ -169,16 +169,16 @@ export const homeServices = [
     description:
       "End-to-end freight coordination connecting Tanzanian businesses to regional and international trade corridors.",
     image:
-      "https://images.unsplash.com/photo-1465146633011-14f8e0781093?auto=format&fit=crop&w=1200&q=80",
-    alt: "Container ship and freight operations at a commercial port",
+      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80",
+    alt: "Cargo ship at sea carrying international freight",
   },
   {
     title: "Import & Export",
     description:
       "Smooth cargo movement and logistics coordination for importers and exporters at competitive rates.",
     image:
-      "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80",
-    alt: "Industrial port yard with stacked shipping containers",
+      "https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&w=1200&q=80",
+    alt: "Stacked shipping containers at a commercial port yard",
   },
   {
     title: "Supply Chain Support",
