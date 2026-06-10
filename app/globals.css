@@ -153,11 +153,11 @@ body {
   }
 }
 
-/* Why Choose Us — bento cards */
+/* Why Choose Us */
 .why-section-ambient {
   background:
-    radial-gradient(ellipse 55% 45% at 12% 20%, rgba(255, 107, 0, 0.09) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 88% 75%, rgba(0, 194, 255, 0.08) 0%, transparent 55%);
+    radial-gradient(ellipse 55% 45% at 12% 20%, rgba(255, 107, 0, 0.1) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 88% 75%, rgba(0, 194, 255, 0.09) 0%, transparent 55%);
 }
 
 .why-section-mesh {
@@ -168,32 +168,56 @@ body {
   mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 75%);
 }
 
+.why-section-bg-graphic {
+  mask-image: radial-gradient(circle at center, black 20%, transparent 72%);
+}
+
 .why-card {
-  @apply relative overflow-hidden rounded-2xl border border-white/10 bg-navy-light/40 p-6 shadow-xl backdrop-blur-sm transition-all duration-500 sm:p-7;
+  @apply relative rounded-3xl border border-white/10 bg-navy-dark/60 shadow-2xl backdrop-blur-sm transition-all duration-500;
 }
 
 .why-card:hover {
-  @apply -translate-y-1.5 border-white/20 bg-navy-light/60;
+  @apply -translate-y-1 border-white/20;
   box-shadow:
-    0 24px 48px -12px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.06);
+    0 28px 56px -16px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 194, 255, 0.08);
 }
 
-.why-card-accent {
-  @apply absolute left-0 top-0 h-1 w-full opacity-80 transition-all duration-500 group-hover:h-1.5 group-hover:opacity-100;
+.why-card-icon-badge {
+  @apply flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 shadow-lg backdrop-blur-md transition-colors duration-300 group-hover:border-cyan/40 group-hover:bg-cyan/10 sm:h-12 sm:w-12;
 }
 
 .why-card-index {
-  @apply pointer-events-none absolute -right-1 -top-3 select-none text-7xl font-extrabold leading-none text-white/[0.04] transition-colors duration-500 group-hover:text-white/[0.07] sm:text-8xl;
+  @apply pointer-events-none absolute bottom-3 right-4 select-none text-6xl font-extrabold leading-none text-white/[0.06] transition-colors duration-500 group-hover:text-white/[0.1] sm:text-7xl;
 }
 
-.why-card-shine {
-  background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.04) 50%,
-    transparent 60%
-  );
+.why-route-dash {
+  animation: why-route-march 5s linear infinite;
+}
+
+.why-route-node {
+  animation: why-node-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes why-route-march {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+
+@keyframes why-node-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.motion-paused .why-route-dash,
+.motion-paused .why-route-node {
+  animation-play-state: paused;
 }
 
 .animate-fade-in {

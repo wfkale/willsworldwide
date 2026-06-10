@@ -127,31 +127,49 @@ export const whyChooseUs = [
     icon: "shield",
     title: "Professional Logistics Management",
     text: "Industry expertise and structured operations from planning through to final delivery.",
+    image:
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Modern warehouse with coordinated logistics operations",
   },
   {
     icon: "clock",
     title: "Safe & Secure Cargo Handling",
     text: "Rigorous handling protocols designed to protect cargo integrity at every touchpoint.",
+    image:
+      "https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Secure shipping containers stacked at a commercial port",
   },
   {
     icon: "route",
     title: "Timely Delivery Services",
     text: "An optimised network ensuring on-time delivery across all regional service routes.",
+    image:
+      "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Freight trucks moving cargo on a regional highway",
   },
   {
     icon: "dollar",
     title: "Competitive Pricing",
     text: "Market-competitive rates with flexible models tailored to businesses of all sizes.",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Business professionals reviewing logistics and pricing plans",
   },
   {
     icon: "globe",
     title: "Strong Regional Network",
     text: "Established transport connectivity across East Africa opening new trade opportunities.",
+    image:
+      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Cargo vessel on international trade routes",
   },
   {
     icon: "users",
     title: "Customer-Focused Operations",
     text: "Client success drives everything we do — we listen, adapt and exceed expectations.",
+    image:
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Operations team coordinating supply chain workflows",
   },
 ];
 
