@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { LiteModeProvider } from "@/components/providers/lite-mode-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
+import { LITE_MODE_BOOTSTRAP } from "@/lib/lite-mode";
 import "./globals.css";
 
 const inter = Inter({
@@ -41,12 +43,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: LITE_MODE_BOOTSTRAP }} />
+      </head>
       <body className="font-sans">
-        <SmoothScrollProvider>
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-        </SmoothScrollProvider>
+        <LiteModeProvider>
+          <SmoothScrollProvider>
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+          </SmoothScrollProvider>
+        </LiteModeProvider>
       </body>
     </html>
   );

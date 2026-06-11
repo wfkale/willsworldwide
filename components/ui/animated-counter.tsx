@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { loadGsap } from "@/lib/gsap-loader";
+import { shouldReduceMotion } from "@/lib/lite-mode";
 
 type AnimatedCounterProps = {
   value: number;
@@ -33,6 +34,11 @@ export function AnimatedCounter({
     let cancelled = false;
 
     const init = async () => {
+      if (shouldReduceMotion() || immediate) {
+        if (!cancelled) setCount(value);
+        return;
+      }
+
       const { gsap } = await loadGsap();
       if (cancelled || !el) return;
 

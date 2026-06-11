@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "sync-assets": "node scripts/sync-assets.mjs",
+    "sync-assets:force": "node scripts/sync-assets.mjs -- --force",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

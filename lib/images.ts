@@ -1,4 +1,11 @@
 /** Self-hosted logistics imagery — served from /public/images/logistics on Railway */
+export type ImageVariant = "full" | "sm";
+
+export function logisticsImage(src: string, variant: ImageVariant = "full"): string {
+  if (variant === "sm") return src.replace(/\.webp$/, "-sm.webp");
+  return src;
+}
+
 export const images = {
   terminalCoordination: "/images/logistics/terminal-coordination.webp",
   warehouseForklift: "/images/logistics/warehouse-forklift.webp",

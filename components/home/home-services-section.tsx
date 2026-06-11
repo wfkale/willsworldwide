@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { homeServices } from "@/lib/content";
+import { logisticsImage } from "@/lib/images";
 
 export function HomeServicesSection() {
   const ref = useScrollReveal<HTMLElement>();
@@ -42,7 +43,7 @@ export function HomeServicesSection() {
                   }`}
                 >
                   <Image
-                    src={service.image}
+                    src={logisticsImage(service.image, index < 2 ? "full" : "sm")}
                     alt={service.alt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"

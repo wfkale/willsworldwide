@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 /**
- * One-time / on-demand download of logistics photos as WebP into public/images/logistics.
- * Re-run only when adding new remote sources to the manifest.
+ * Download logistics photos as WebP into public/images/logistics.
+ * Usage: npm run sync-assets [-- --force]
  */
-import { mkdir, writeFile, access } from "node:fs/promises";
+import { mkdir, writeFile, unlink } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, "..", "public", "images", "logistics");
+const force = process.argv.includes("--force");
 
 /** @type {{ file: string; photoId: string }[]} */
 const MANIFEST = [
@@ -28,21 +29,18 @@ const MANIFEST = [
   { file: "supply-chain.webp", photoId: "1581091226825-a6a2a5aee158" },
 ];
 
-function sourceUrl(photoId) {
-  return `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=1200&q=80&fm=webp`;
+const SIZES = [
+  { suffix: "", width: 960, quality: 78 },
+  { suffix: "-sm", width: 640, quality: 72 },
+];
+
+function sourceUrl(photoId, width, quality) {
+  return `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=${width}&q=${quality}&fm=webp`;
 }
 
-async function download(file, photoId) {
+async function download(file, photoId, width, quality) {
   const dest = join(OUT_DIR, file);
-  try {
-    await access(dest);
-    console.log(`skip ${file} (exists)`);
-    return;
-  } catch {
-    /* download */
-  }
-
-  const res = await fetch(sourceUrl(photoId));
+  const res = await fetch(sourceUrl(photoId, width, quality));
   if (!res.ok) {
     throw new Error(`Failed ${file}: HTTP ${res.status}`);
   }
@@ -54,8 +52,23 @@ async function download(file, photoId) {
 
 await mkdir(OUT_DIR, { recursive: true });
 
-for (const { file, photoId } of MANIFEST) {
-  await download(file, photoId);
+for (const { file: baseFile, photoId } of MANIFEST) {
+  const stem = baseFile.replace(/\.webp$/, "");
+
+  for (const { suffix, width, quality } of SIZES) {
+    const file = `${stem}${suffix}.webp`;
+    const dest = join(OUT_DIR, file);
+
+    if (force) {
+      try {
+        await unlink(dest);
+      } catch {
+        /* missing */
+      }
+    }
+
+    await download(file, photoId, width, quality);
+  }
 }
 
-console.log(`\nDone — ${MANIFEST.length} assets in public/images/logistics/`);
+console.log(`\nDone — ${MANIFEST.length * SIZES.length} assets in public/images/logistics/`);

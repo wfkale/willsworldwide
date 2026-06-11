@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useStaggerReveal } from "@/hooks/use-scroll-reveal";
 import { whyChooseUs } from "@/lib/content";
+import { logisticsImage } from "@/lib/images";
 import {
   WhyCardRoutes,
   WhyCompassArc,
@@ -95,7 +96,7 @@ export function HomeWhySection() {
                   }`}
                 >
                   <Image
-                    src={item.image}
+                    src={logisticsImage(item.image, isFeature || isWide ? "full" : "sm")}
                     alt={item.imageAlt}
                     fill
                     sizes={

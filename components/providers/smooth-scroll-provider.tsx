@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { GSAP_ROUTES, loadGsap } from "@/lib/gsap-loader";
+import { isLiteModeActive } from "@/lib/lite-mode";
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -10,7 +11,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (prefersReduced || isMobile) return;
+    if (prefersReduced || isMobile || isLiteModeActive()) return;
 
     let lenis: import("lenis").default | null = null;
     let rafId = 0;

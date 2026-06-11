@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { loadGsap } from "@/lib/gsap-loader";
+import { shouldReduceMotion } from "@/lib/lite-mode";
 import { processSteps } from "@/lib/content";
 
 export function HomeProcessSection() {
@@ -15,15 +16,18 @@ export function HomeProcessSection() {
     let cancelled = false;
 
     const init = async () => {
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const items = section.querySelectorAll("[data-step]");
-      const { gsap } = await loadGsap();
-      if (cancelled) return;
 
-      if (prefersReduced) {
-        gsap.set(items, { opacity: 1, x: 0 });
+      if (shouldReduceMotion()) {
+        items.forEach((item) => {
+          (item as HTMLElement).style.opacity = "1";
+          (item as HTMLElement).style.transform = "none";
+        });
         return;
       }
+
+      const { gsap } = await loadGsap();
+      if (cancelled) return;
 
       const tween = gsap.fromTo(
         items,

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { loadGsap } from "@/lib/gsap-loader";
+import { shouldReduceMotion } from "@/lib/lite-mode";
 
 export function useScrollReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -14,14 +15,16 @@ export function useScrollReveal<T extends HTMLElement>() {
     let cancelled = false;
 
     const init = async () => {
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const { gsap } = await loadGsap();
-      if (cancelled || !el) return;
-
-      if (prefersReduced) {
-        gsap.set(el, { opacity: 1, y: 0 });
+      if (shouldReduceMotion()) {
+        if (!cancelled && el) {
+          el.style.opacity = "1";
+          el.style.transform = "none";
+        }
         return;
       }
+
+      const { gsap } = await loadGsap();
+      if (cancelled || !el) return;
 
       const tween = gsap.fromTo(
         el,
@@ -63,15 +66,18 @@ export function useStaggerReveal<T extends HTMLElement>(selector: string) {
     let cancelled = false;
 
     const init = async () => {
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const items = container.querySelectorAll(selector);
-      const { gsap } = await loadGsap();
-      if (cancelled) return;
 
-      if (prefersReduced) {
-        gsap.set(items, { opacity: 1, y: 0 });
+      if (shouldReduceMotion()) {
+        items.forEach((item) => {
+          (item as HTMLElement).style.opacity = "1";
+          (item as HTMLElement).style.transform = "none";
+        });
         return;
       }
+
+      const { gsap } = await loadGsap();
+      if (cancelled) return;
 
       const tween = gsap.fromTo(
         items,

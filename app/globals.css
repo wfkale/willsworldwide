@@ -220,6 +220,34 @@ body {
   animation-play-state: paused;
 }
 
+/* Connection-aware lite mode (slow networks / save-data) */
+[data-lite="true"] .why-route-dash,
+[data-lite="true"] .why-route-node,
+[data-lite="true"] .hero-logo-float,
+[data-lite="true"] .hero-route-arc,
+[data-lite="true"] .hero-orbit,
+[data-lite="true"] .hero-orbit-dot,
+[data-lite="true"] .route-lane-markings,
+[data-lite="true"] .route-freight-lane,
+[data-lite="true"] .hub-pulse {
+  animation: none !important;
+}
+
+[data-lite="true"] .why-card:hover,
+[data-lite="true"] .glass-card,
+[data-lite="true"] .why-card-icon-badge {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-lite="true"] .why-card:hover {
+  transform: none;
+}
+
+[data-lite="true"] img {
+  transition: none !important;
+}
+
 .animate-fade-in {
   animation: fade-in 0.25s ease-out;
 }
