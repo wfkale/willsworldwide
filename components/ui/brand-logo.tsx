@@ -6,9 +6,16 @@ const LOGO_HEIGHT = 533;
 
 type BrandLogoProps = {
   variant?: "header" | "hero";
+  /** Lightened logo for dark / transparent headers */
+  tone?: "default" | "onDark";
   priority?: boolean;
   className?: string;
 };
+
+const logoSrc = {
+  default: "/logo.png",
+  onDark: "/logo-header-light.png",
+} as const;
 
 const variantStyles = {
   header:
@@ -23,18 +30,23 @@ const variantSizes = {
 
 export function BrandLogo({
   variant = "header",
+  tone = "default",
   priority = false,
   className = "",
 }: BrandLogoProps) {
+  const onDark = tone === "onDark";
+
   return (
     <Image
-      src="/logo.png"
+      src={logoSrc[tone]}
       alt={company.name}
       width={LOGO_WIDTH}
       height={LOGO_HEIGHT}
       priority={priority}
       sizes={variantSizes[variant]}
-      className={`object-contain ${variantStyles[variant]} ${className}`.trim()}
+      className={`object-contain ${variantStyles[variant]} ${
+        onDark ? "drop-shadow-[0_2px_10px_rgba(0,194,255,0.22)]" : ""
+      } ${className}`.trim()}
     />
   );
 }

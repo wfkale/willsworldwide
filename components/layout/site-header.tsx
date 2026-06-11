@@ -49,7 +49,11 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
         <Link href="/" className="flex shrink-0 items-center">
-          <BrandLogo variant="header" priority />
+          <BrandLogo
+            variant="header"
+            tone={darkNavText ? "default" : "onDark"}
+            priority
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
