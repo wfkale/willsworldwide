@@ -154,75 +154,65 @@ body {
 }
 
 /* Why Choose Us */
+.why-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
 .why-section-ambient {
   background:
-    radial-gradient(ellipse 55% 45% at 12% 20%, rgba(255, 107, 0, 0.1) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 88% 75%, rgba(0, 194, 255, 0.09) 0%, transparent 55%);
-}
-
-.why-section-mesh {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 75%);
-}
-
-.why-section-bg-graphic {
-  mask-image: radial-gradient(circle at center, black 20%, transparent 72%);
+    radial-gradient(ellipse 55% 45% at 12% 20%, rgba(255, 107, 0, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 88% 75%, rgba(0, 194, 255, 0.06) 0%, transparent 55%);
 }
 
 .why-card {
-  @apply relative rounded-3xl border border-white/10 bg-navy-dark/60 shadow-2xl backdrop-blur-sm transition-all duration-500;
-}
-
-.why-card:hover {
-  @apply -translate-y-1 border-white/20;
-  box-shadow:
-    0 28px 56px -16px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(0, 194, 255, 0.08);
+  @apply relative rounded-2xl border border-white/10 bg-navy-dark/80 shadow-lg;
 }
 
 .why-card-icon-badge {
-  @apply flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 shadow-lg backdrop-blur-md transition-colors duration-300 group-hover:border-cyan/40 group-hover:bg-cyan/10 sm:h-12 sm:w-12;
+  @apply flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 bg-navy-dark/80;
 }
 
-.why-card-index {
-  @apply pointer-events-none absolute bottom-3 right-4 select-none text-6xl font-extrabold leading-none text-white/[0.06] transition-colors duration-500 group-hover:text-white/[0.1] sm:text-7xl;
+.why-reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+  transition-delay: calc(var(--reveal-index, 0) * 70ms);
 }
 
-.why-route-dash {
-  animation: why-route-march 5s linear infinite;
+.why-reveal-item.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
-.why-route-node {
-  animation: why-node-pulse 2.4s ease-in-out infinite;
+.why-reveal-item[data-reveal-index="0"] {
+  --reveal-index: 0;
 }
-
-@keyframes why-route-march {
-  to {
-    stroke-dashoffset: -26;
-  }
+.why-reveal-item[data-reveal-index="1"] {
+  --reveal-index: 1;
 }
-
-@keyframes why-node-pulse {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-  50% {
-    opacity: 1;
-  }
+.why-reveal-item[data-reveal-index="2"] {
+  --reveal-index: 2;
 }
-
-.motion-paused .why-route-dash,
-.motion-paused .why-route-node {
-  animation-play-state: paused;
+.why-reveal-item[data-reveal-index="3"] {
+  --reveal-index: 3;
+}
+.why-reveal-item[data-reveal-index="4"] {
+  --reveal-index: 4;
+}
+.why-reveal-item[data-reveal-index="5"] {
+  --reveal-index: 5;
 }
 
 /* Connection-aware lite mode (slow networks / save-data) */
-[data-lite="true"] .why-route-dash,
-[data-lite="true"] .why-route-node,
+[data-lite="true"] .why-reveal-item {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 [data-lite="true"] .hero-logo-float,
 [data-lite="true"] .hero-route-arc,
 [data-lite="true"] .hero-orbit,
@@ -233,15 +223,9 @@ body {
   animation: none !important;
 }
 
-[data-lite="true"] .why-card:hover,
-[data-lite="true"] .glass-card,
-[data-lite="true"] .why-card-icon-badge {
+[data-lite="true"] .glass-card {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-}
-
-[data-lite="true"] .why-card:hover {
-  transform: none;
 }
 
 [data-lite="true"] img {
