@@ -6,12 +6,23 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { industries } from "@/lib/content";
 
 const ORBIT_RADIUS = { base: 100, md: 130, lg: 150 };
+/** How close pills sit to the nucleus on hover — along their spoke, on the same side */
+const HOVER_INSET = 62;
 
 function getOrbitPosition(angle: number, radius: number) {
   const rad = (angle * Math.PI) / 180;
   return {
     x: Math.cos(rad) * radius,
     y: Math.sin(rad) * radius,
+  };
+}
+
+/** Slide inward toward nucleus, stopping beside it on the item's side */
+function getHoverPosition(angle: number, inset = HOVER_INSET) {
+  const rad = (angle * Math.PI) / 180;
+  return {
+    x: Math.cos(rad) * inset,
+    y: Math.sin(rad) * inset,
   };
 }
 
@@ -67,6 +78,8 @@ export function HomeIndustriesSection() {
               const isHovered = hoveredId === ind.id;
               const radius = ORBIT_RADIUS.lg;
               const orbit = getOrbitPosition(ind.angle, radius);
+              const beside = getHoverPosition(ind.angle);
+              const pos = isHovered ? beside : orbit;
 
               return (
                 <motion.button
@@ -77,22 +90,24 @@ export function HomeIndustriesSection() {
                   onFocus={() => handleEnter(ind.id)}
                   onBlur={handleLeave}
                   onClick={() => setSelected(ind)}
-                  className={`absolute left-1/2 top-1/2 z-20 whitespace-nowrap rounded-full px-4 py-2.5 text-xs font-semibold shadow-md sm:text-sm ${
+                  className={`absolute left-1/2 top-1/2 whitespace-nowrap rounded-full px-4 py-2.5 text-xs font-semibold shadow-md sm:text-sm ${
+                    isHovered ? "z-30" : "z-20"
+                  } ${
                     isHovered
                       ? "bg-orange text-white shadow-lg shadow-orange/30"
                       : "bg-white text-navy hover:bg-orange/10"
                   }`}
                   initial={false}
                   animate={{
-                    x: `calc(-50% + ${isHovered ? 0 : orbit.x}px)`,
-                    y: `calc(-50% + ${isHovered ? 52 : orbit.y}px)`,
+                    x: `calc(-50% + ${pos.x}px)`,
+                    y: `calc(-50% + ${pos.y}px)`,
                     scale: isHovered ? 1.06 : 1,
                   }}
                   transition={{
                     type: "spring",
-                    stiffness: 320,
-                    damping: 28,
-                    mass: 0.85,
+                    stiffness: 340,
+                    damping: 26,
+                    mass: 0.8,
                   }}
                 >
                   {ind.title.split(" & ")[0]}
